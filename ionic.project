@@ -1,0 +1,9 @@
+{
+  "gulpStartupTasks": [
+    "build"
+    ],
+    "watchPatterns": [
+      "source/**/*",
+    "www/**/*"
+      ]
+}

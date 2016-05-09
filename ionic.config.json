@@ -2,8 +2,7 @@
   "name": "pouch-demo-chat",
   "app_id": "",
   "gulpStartupTasks": [
-    "build",
-    "!build/lib/**/*"
+    "build"
   ],
   "watchPatterns": [
     "source/**/*",

@@ -16,15 +16,19 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['watch']);
 gulp.task('build', [
   'js-min',
   'js-concat',
   'css-concat',
-  'img-min',
+  //  'img-min',
   'html-min',
   'html-tmpl-min'
 ]);
+
+gulp.task('watch', function () {
+  gulp.watch('source/**/*.html', ['html-min', 'html-tmpl-min']);
+});
 
 gulp.task('html-min', function() {
   return gulp.src([

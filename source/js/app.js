@@ -11,6 +11,7 @@ angular
   .config(config);
 
 run.$inject = ['$ionicPlatform', '$window']; 
+
 function run($ionicPlatform, $window) {
   $ionicPlatform.ready(function() {
     if ($window.cordova && $window.cordova.plugins && $window.cordova.plugins.Keyboard) {
@@ -25,6 +26,7 @@ function run($ionicPlatform, $window) {
 }
 
 config.$inject = ['$stateProvider', '$urlRouterProvider'];
+
 function config($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
@@ -47,7 +49,8 @@ function config($stateProvider, $urlRouterProvider) {
         views: {
           'tab-dash': {
             templateUrl: 'templates/tab-dash.html',
-            controller: 'DashCtrl'
+            controller: 'DashCtrl',
+            controllerAs: 'vm'
           }
         }
       })

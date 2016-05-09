@@ -4,9 +4,9 @@ angular.module('starter.services', [])
 
     var chats = [{
       id: 0,
-      name: 'Ben Sparrow',
-      lastText: 'You on your way?',
-      face: 'img/ben.png'
+      name: 'Room Chat',
+      lastText: 'Enjoy',
+      face: 'img/chat.png'
     }, {
       id: 1,
       name: 'Max Lynx',
@@ -43,6 +43,9 @@ angular.module('starter.services', [])
           }
         }
         return null;
+      },
+      add : function add (user) {
+        chats.push(user);
       }
     };
   });
