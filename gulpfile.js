@@ -9,6 +9,7 @@ var pngquant = require('imagemin-pngquant');
 var htmlmin = require('gulp-htmlmin');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
+var gulpSequence = require('gulp-sequence');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 
@@ -16,18 +17,28 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['watch', 'build', 'run']);
 gulp.task('build', [
-  'js-min',
-  'js-concat',
+  'js-sequence',
   'css-concat',
   //  'img-min',
   'html-min',
   'html-tmpl-min'
 ]);
 
+gulp.task('js-sequence', gulpSequence(['js-concat', 'js-min']));
+
+gulp.task('run', function (done) {
+  var networkInterfaces = require('os').networkInterfaces();
+  var ip = networkInterfaces.eth0[0].address;
+  var cmd = `ionic serve --address ${ip} --port 8100`;
+  var child = sh.exec(cmd, {async:true});
+  child.stdout.on('end',done);
+});
+
 gulp.task('watch', function () {
-  gulp.watch('source/**/*.html', ['html-min', 'html-tmpl-min']);
+  gulp.watch('./source/**/*.js', ['js-sequece']);
+  gulp.watch('./source/**/*.html', ['html-min', 'html-tmpl-min']);
 });
 
 gulp.task('html-min', function() {
@@ -93,6 +104,7 @@ gulp.task('js-min', () => {
 gulp.task('js-concat', function () {
   return gulp.src([
     './source/lib/ionic/js/ionic.bundle.min.js',
+    './source/lib/pouchdb/dist/pouchdb.min.js',
     './source/build/js/*.js'
   ])
   .pipe(concat('all.min.js'))
